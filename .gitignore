@@ -1,0 +1,5 @@
+# Ignore virtual environment directory
+.venv/**
+data/**
+**/__pycache__/**
+.DS_Store
