@@ -1,10 +1,10 @@
 import numpy as np
 from typing import Tuple, List, Mapping, Callable, Optional
-from pathlib import Path
 from torch.utils.data import Dataset, Subset
 from dataclasses import dataclass
+from config import default_config
 
-DATASET_DIR = Path(__file__).parent.parent / Path("data")
+DATASET_DIR = default_config().dataset_dir
 
 
 @dataclass
@@ -41,7 +41,7 @@ class DatasetFactory:
     def group_dataset_by_label(cls, dataset: Dataset, num_classes: int) -> List[Dataset]:
         indices = [[] for _ in range(num_classes)]
         for i, (data, target) in enumerate(dataset):
-            indices[target].append(i)
+            indices[int(target)].append(i)
         return [Subset(dataset, i) for i in indices]
 
     @classmethod
